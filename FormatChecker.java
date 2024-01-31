@@ -35,7 +35,7 @@ public class FormatChecker {
 
                             if (rowVal.length == col) {
                                 for (int j = 0; j < col; j++) {
-                                    array[k][j] = Double.parseDouble(rowVal[j]); // parse to double so because our array
+                                    array[k][j] = Double.parseDouble(rowVal[j]); // parse to double because our array
                                                                                  // is a double array
                                 }
                             }
