@@ -3,17 +3,19 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Takes in one or many files and checks to see if they are VALID or INVALId
- * based on certain conditions
+ * FormatChecker is a java program that reads in one or more files through a command-line argument. It checks if the command-line argument is valid and then checks to see if each file is in the correct format, if 
+ * it's not, it catches or throws an exception depending on what the format error is.
  * 
  * @author Zoe Lawler
  * 
- * @param main takes String[] args as a parameter which passes in command-line
- *             arguments
  */
 
 public class FormatChecker {
-
+    /**
+     * 
+     * 
+     * @param args Takes in command-line arguments and checks various files if they are in the correct format
+     */
     public static void main(String[] args) {
 
         String usageMsg = "Usage message should be in this format: \n $ java FormatChecker file1 [file2 ... fileN] \n where FormatChecker is the name of this class, file1 is the name of the file to be tested and [file2...fileN] are the additional files to be tested";
@@ -45,17 +47,30 @@ public class FormatChecker {
                 if (row > 0 && col > 0) { // make sure that the matrix is greater than 0 otherwise it's invalid
 
                     while (scnr.hasNextLine()) {
-                        String[] rowVal = scnr.nextLine().split(" ");
 
-                        if (rowVal.length != col) { //invalid1.dat fails here but i want it to go to numberformatexception
+                        String firstLine = scnr.nextLine();
+
+                        String[] rowVal = firstLine.split("\\s+"); //splits this array at each space
+
+                        if (firstLine.isEmpty()) { // checks for empty lines and ignores them if there are any
+                            continue;
+                        }
+
+                        for (int s = 0; s < rowVal.length; s++) { // parses everything in the matrix to a double
+                            Double.parseDouble(rowVal[s]);
+
+                        }
+
+                        if (rowVal.length != col) { // if length of each row value doesn't equal col number then throw
+                                                    // exception
                             throw new InvalidFileFormatException(
-                                    "boom Number of rows and columns of the matrix do not match the specified size of matrix found on the first line");
+                                    "Number of rows and columns of the matrix do not match the specified size of matrix found on the first line");
                         }
 
                         linecount++;
                     }
 
-                    if (linecount != row) {
+                    if (linecount != row) { // makes sure linecount equals row number, if not throws exception
                         throw new InvalidFileFormatException(
                                 "Number of rows and columns of the matrix do not match the specified size of matrix found on the first line");
                     }
@@ -63,11 +78,11 @@ public class FormatChecker {
 
                 System.out.println(filename + "\n" + "VALID");
 
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException e) { //if a file doesn't exist or can't be found this exception is caught here
                 System.out.println(filename + "\n" + e.toString() + "\n" + "INVALID");
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { //if a number format error is found it catches the exception here
                 System.out.println(filename + "\n" + e.toString() + "\n" + "INVALID");
-            } catch (Exception e) {
+            } catch (InvalidFileFormatException e) { //this is a custom exception made to catch invalid file formats
                 System.out.println(filename + "\n" + e.toString() + "\n" + "INVALID");
             }
 
