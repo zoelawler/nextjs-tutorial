@@ -3,18 +3,21 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * FormatChecker is a java program that reads in one or more files through a command-line argument. It checks if the command-line argument is valid and then checks to see if each file is in the correct format, if 
- * it's not, it catches or throws an exception depending on what the format error is.
+ * FormatChecker is a java program that reads in one or more files through a
+ * command-line argument. It checks if the command-line argument is valid and
+ * then checks to see if each file is in the correct format, if
+ * it's not, it catches or throws an exception depending on what the format
+ * error is.
  * 
  * @author Zoe Lawler
  * 
  */
 
 public class FormatChecker {
+
     /**
-     * 
-     * 
-     * @param args Takes in command-line arguments and checks various files if they are in the correct format
+     * @param args Takes in command-line arguments and checks various files if they
+     *             are in the correct format
      */
     public static void main(String[] args) {
 
@@ -50,7 +53,7 @@ public class FormatChecker {
 
                         String firstLine = scnr.nextLine();
 
-                        String[] rowVal = firstLine.split("\\s+"); //splits this array at each space
+                        String[] rowVal = firstLine.split("\\s+"); // splits this array at each space
 
                         if (firstLine.isEmpty()) { // checks for empty lines and ignores them if there are any
                             continue;
@@ -78,14 +81,14 @@ public class FormatChecker {
 
                 System.out.println(filename + "\n" + "VALID");
 
-            } catch (FileNotFoundException e) { //if a file doesn't exist or can't be found this exception is caught here
+            } catch (FileNotFoundException e) { // if a file doesn't exist or can't be found this exception is caught
+                                                // here
                 System.out.println(filename + "\n" + e.toString() + "\n" + "INVALID");
-            } catch (NumberFormatException e) { //if a number format error is found it catches the exception here
+            } catch (NumberFormatException e) { // if a number format error is found it catches the exception here
                 System.out.println(filename + "\n" + e.toString() + "\n" + "INVALID");
-            } catch (InvalidFileFormatException e) { //this is a custom exception made to catch invalid file formats
+            } catch (InvalidFileFormatException e) { // this is a custom exception made to catch invalid file formats
                 System.out.println(filename + "\n" + e.toString() + "\n" + "INVALID");
             }
-
             System.out.println();
         }
     }
